@@ -1,6 +1,4 @@
-import React from 'react';
-type TestComponentProps = {
-    textText?: string;
-};
-export declare const TestComponent: React.FC<TestComponentProps>;
-export {};
+import './main.css';
+import './output.css';
+import { Reviews } from './components/Reviews';
+export { Reviews };

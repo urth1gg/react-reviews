@@ -1,11 +1,8 @@
-import React from 'react';
+import './main.css';
+import './output.css';
 
-import s from './styles.module.css';
+import { Reviews } from './components/Reviews';
 
-type TestComponentProps = {
-  textText?: string;
-};
-
-export const TestComponent: React.FC<TestComponentProps> = ({ textText }) => {
-  return <div className={s.root}>{textText ?? 'Hello!'}</div>;
-};
+export {
+    Reviews
+}
