@@ -65,7 +65,7 @@ export const withPathToIcon: Story = {
   },
 };
 
-const ReviewComponent = ({ review } : { review: Review}) => {
+const ReviewComponent = ({ review }: { review: Review }) => {
   return (
     <div className="text-white bg-main-light p-3">
       <h3>{review.author}</h3>
@@ -129,5 +129,33 @@ export const withNoReviews: Story = {
   args: {
     onSubmit: f => f,
     reviews: []
+  }
+}
+
+let images = [
+  'https://cdn-icons-png.flaticon.com/512/616/616490.png', 'https://cdn-icons-png.flaticon.com/512/616/616490.png', 'https://cdn-icons-png.flaticon.com/512/616/616490.png',
+  'https://cdn-icons-png.flaticon.com/512/616/616490.png', 'https://cdn-icons-png.flaticon.com/512/616/616490.png', 'https://cdn-icons-png.flaticon.com/512/616/616490.png', 'https://cdn-icons-png.flaticon.com/512/616/616490.png', 'https://cdn-icons-png.flaticon.com/512/616/616490.png',
+  'https://cdn-icons-png.flaticon.com/512/616/616490.png', 'https://cdn-icons-png.flaticon.com/512/616/616490.png'
+]
+export const withImages: Story = {
+  args: {
+    reviews: [
+      {
+        id: 1,
+        author: 'John Doe',
+        comment: 'This is a great product!',
+        rating: 4,
+        date: '2021-01-01',
+        images: images.slice(0, 3)
+      },
+      {
+        id: 2,
+        author: 'John Doe',
+        comment: 'This is a great product!',
+        rating: 4,
+        date: '2021-01-01',
+        images: images.slice(0, 5)
+      },
+    ]
   }
 }

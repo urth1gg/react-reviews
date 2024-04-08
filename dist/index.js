@@ -8523,7 +8523,7 @@ const Reviews = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, class
                 React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3", onClick: handleNextClick },
                     React.createElement("img", { src: img$1, alt: "right", className: 'max-w-[30px] w-[30px]' }))) : React.createElement(React.Fragment, null),
             onSubmit ? (React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3 ml-3 mt-0", onClick: () => setShowNewReviewForm(!showNewReviewForm) }, showNewReviewForm ? 'Close' : 'Add Review')) : null),
-        (showNewReviewForm && onSubmit) ? React.createElement("div", { className: 'top-0 left-0 w-full h-full fixed flex justify-center items-center' },
+        (showNewReviewForm && onSubmit) ? React.createElement("div", { className: 'top-0 left-0 w-full h-full fixed flex justify-center items-center z-[5]' },
             React.createElement("div", { className: 'absolute top-0 left-0 w-full h-full bg-black opacity-50', onClick: () => setShowNewReviewForm(false) }),
             React.createElement(ReviewForm, { onSubmit: (review) => {
                     if (onSubmit) {
