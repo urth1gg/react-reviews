@@ -5,6 +5,44 @@ import '../output.css';
 import { Review } from '../types';
 import { Stars } from '../components/Review';
 
+let reviewsData = [
+  {
+    id: 1,
+    author: 'John Doe',
+    comment: 'This is a great product!',
+    rating: 4,
+    date: '2021-01-01',
+  },
+  {
+    id: 2,
+    author: 'Jane Smith',
+    comment: 'I highly recommend this product.',
+    rating: 5,
+    date: '2021-01-02',
+  },
+  {
+    id: 3,
+    author: 'John Doe',
+    comment: 'This is a great product!',
+    rating: 4,
+    date: '2021-01-01',
+  },
+  {
+    id: 4,
+    author: 'Jane Smith',
+    comment: 'I highly recommend this product.',
+    rating: 5,
+    date: '2021-01-02',
+  },
+  {
+    id: 5,
+    author: 'John Doe',
+    comment: 'This is a great product!',
+    rating: 4,
+    date: '2021-01-01',
+  }
+];
+
 const meta = {
   title: 'Example/Reviews',
   component: Reviews,
@@ -16,79 +54,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     pathToIcon: "/assets/star.svg",
-    reviews: [
-      {
-        id: 1,
-        author: 'John Doe',
-        comment: 'This is a great product!',
-        rating: 4,
-        date: '2021-01-01',
-      },
-      {
-        id: 2,
-        author: 'Jane Smith',
-        comment: 'I highly recommend this product.',
-        rating: 5,
-        date: '2021-01-02',
-      },
-      {
-        id: 3,
-        author: 'John Doe',
-        comment: 'This is a great product!',
-        rating: 4,
-        date: '2021-01-01',
-      },
-      {
-        id: 4,
-        author: 'Jane Smith',
-        comment: 'I highly recommend this product.',
-        rating: 5,
-        date: '2021-01-02',
-      },
-      {
-        id: 5,
-        author: 'John Doe',
-        comment: 'This is a great product!',
-        rating: 4,
-        date: '2021-01-01',
-      }
-    ],
+    reviews: reviewsData
   },
 };
 
 export const withPathToIcon: Story = {
   args: {
     pathToIcon: 'https://cdn-icons-png.flaticon.com/512/616/616490.png',
-    reviews: [
-      {
-        id: 1,
-        author: 'John Doe',
-        comment: 'This is a great product!',
-        rating: 4,
-        date: '2021-01-01',
-      },
-      {
-        id: 2,
-        author: 'Jane Smith',
-        comment: 'I highly recommend this product.',
-        rating: 5,
-        date: '2021-01-02',
-      },
-      {
-        id: 3,
-        author: 'John Doe',
-        comment: 'This is a great product!',
-        rating: 4,
-        date: '2021-01-01',
-      },
-      {
-        id: 4,
-        author: 'Jane Smith',
-        comment: 'I highly recommend this product.',
-        rating: 5,
-        date: '2021-01-02',
-      },
-    ],
+    reviews: reviewsData
   },
 };
 
@@ -104,7 +77,14 @@ const ReviewComponent = ({ review } : { review: Review}) => {
 }
 export const withBackground: Story = {
   args: {
-    className: 'bg-red-500',
+    classNameReview: 'bg-red-500',
+    reviews: reviewsData
+  },
+};
+
+export const withComponent: Story = {
+  args: {
+    _ReviewComponent: ReviewComponent,
     reviews: [
       {
         id: 1,
@@ -138,39 +118,9 @@ export const withBackground: Story = {
   },
 };
 
-export const withComponent: Story = {
+export const withSubmit: Story = {
   args: {
-    _ReviewComponent: ReviewComponent,
-    className: 'bg-red-500',
-    reviews: [
-      {
-        id: 1,
-        author: 'John Doe',
-        comment: 'This is a great product!',
-        rating: 4,
-        date: '2021-01-01',
-      },
-      {
-        id: 2,
-        author: 'Jane Smith',
-        comment: 'I highly recommend this product.',
-        rating: 5,
-        date: '2021-01-02',
-      },
-      {
-        id: 3,
-        author: 'John Doe',
-        comment: 'This is a great product!',
-        rating: 4,
-        date: '2021-01-01',
-      },
-      {
-        id: 4,
-        author: 'Jane Smith',
-        comment: 'I highly recommend this product.',
-        rating: 5,
-        date: '2021-01-02',
-      },
-    ],
+    onSubmit: (review: Review) => console.log(review),
+    reviews: reviewsData
   },
 };

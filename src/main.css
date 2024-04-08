@@ -1,10 +1,6 @@
-@tailwind base;
-@tailwind components;
+/* @tailwind base; */
+/* @tailwind components; */
 @tailwind utilities;
-
-body {
-    background-color: #020617;
-}
 
 .review-enter {
     opacity: 0;

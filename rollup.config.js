@@ -1,4 +1,5 @@
 const postcss = require('rollup-plugin-postcss');
+// const css = require('rollup-plugin-import-css');
 const typescript = require('@rollup/plugin-typescript');
 const peerDepsExternal = require('rollup-plugin-peer-deps-external');
 const resolve = require('@rollup/plugin-node-resolve').default;
@@ -19,7 +20,7 @@ module.exports = {
     resolve(),
     typescript(),
     commonjs(),
-    postcss({ modules: false }),
+    postcss({ modules: false, output: 'output.css' }),
     image(),
     copy({
       targets: [

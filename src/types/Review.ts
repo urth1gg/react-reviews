@@ -1,5 +1,5 @@
 type Review = {
-    id: number;
+    id?: number;
     author: string;
     rating: number;
     comment: string;

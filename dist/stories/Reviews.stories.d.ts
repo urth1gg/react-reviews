@@ -11,3 +11,4 @@ export declare const Default: Story;
 export declare const withPathToIcon: Story;
 export declare const withBackground: Story;
 export declare const withComponent: Story;
+export declare const withSubmit: Story;

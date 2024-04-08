@@ -13,7 +13,7 @@
     "prepare": "npm run build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "tailwind": "npx tailwindcss -i ./src/main.css -o ./src/output.css --watch"
+    "tailwind": "npx tailwindcss -i ./src/main.css -o ./src/assets/output.css --watch"
   },
   "repository": {
     "type": "git",
