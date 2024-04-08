@@ -1,7 +1,10 @@
-/* @tailwind base; */
-/* @tailwind components; */
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
+body{
+    @apply bg-slate-950
+}
 .review-enter {
     opacity: 0;
     transform: translateX(50%);

@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import type { StoryObj } from '@storybook/react';
-import '../output.css';
+import '../assets/output.css';
 declare let meta: {
     title: string;
     component: import("react").FC<import("../components/ReviewForm").ReviewFormComponentProps>;

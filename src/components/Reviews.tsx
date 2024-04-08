@@ -82,38 +82,46 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
     <div className="text-white relative w-full">
       <h1 className='text-2xl mb-2 font-bold text-center'>Customer reviews</h1>
 
-      <div className='flex justify-center items-center gap-2 mb-5'>
+      {reviews.length !== 0 ? <div className='flex justify-center items-center gap-2 mb-5'>
         <div className='flex gap-1'>
           {Array.from({ length: Math.floor(averageRating) }, (_, index) => (
             <img key={index} src={pathToIcon || Star} alt="star" className='max-w-[30px]' />
           ))}
         </div>
         <span>{averageRating.toFixed(1)}</span>
-      </div>
-      <TransitionGroup className={`flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameContainer ? classNameContainer : ''}`}>
-        {visibleReviews.map((review: Review) => (
-          <CSSTransition key={review.id} timeout={700} classNames="review">
-            {_ReviewComponent ? (
-              <_ReviewComponent review={review} />
-            ) : (
-              <ReviewComponent review={review} pathToIcon={pathToIcon} className={classNameReview} />
-            )}
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
+      </div> : <></>}
+      {reviews.length !== 0 ?
+        <TransitionGroup className={`flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameContainer ? classNameContainer : ''}`}>
+          {visibleReviews.map((review: Review) => (
+            <CSSTransition key={review.id} timeout={700} classNames="review">
+              {_ReviewComponent ? (
+                <_ReviewComponent review={review} />
+              ) : (
+                <ReviewComponent review={review} pathToIcon={pathToIcon} className={classNameReview} />
+              )}
+            </CSSTransition>
+          ))}
+        </TransitionGroup> :
+        <div className='flex justify-center items-center w-full h-full'>
+          <h1 className='text-2xl'>No reviews yet.</h1>
+        </div>
+      }
+
       <div className='mt-3 flex justify-center'>
-        <button
-          className="text-white font-bold rounded mr-3 bg-main-light p-3"
-          onClick={handlePrevClick}
-        >
-          <img src={Left} alt="left" className='max-w-[30px] w-[30px]' />
-        </button>
-        <button
-          className="text-white font-bold rounded bg-main-light p-3"
-          onClick={handleNextClick}
-        >
-          <img src={Right} alt="right" className='max-w-[30px] w-[30px]' />
-        </button>
+        {reviews.length !== 0 ? <>
+          <button
+            className="text-white font-bold rounded mr-3 bg-main-light p-3"
+            onClick={handlePrevClick}
+          >
+            <img src={Left} alt="left" className='max-w-[30px] w-[30px]' />
+          </button>
+          <button
+            className="text-white font-bold rounded bg-main-light p-3"
+            onClick={handleNextClick}
+          >
+            <img src={Right} alt="right" className='max-w-[30px] w-[30px]' />
+          </button>
+        </> : <></>}
         {onSubmit ? (
           <button
             className="text-white font-bold rounded bg-main-light p-3 ml-3 mt-0"
@@ -123,18 +131,19 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
           </button>
         ) : null}
       </div>
-      {(showNewReviewForm && onSubmit) ? <div className='top-0 left-0 w-full h-full fixed flex justify-center items-center'>
-        <div className='bg-main-light p-5 rounded-md'></div>
-        <div className='absolute top-0 left-0 w-full h-full bg-black opacity-50' onClick={() => setShowNewReviewForm(false)}></div>
-        <ReviewForm onSubmit={(review: Review) => {
-          if (onSubmit) {
-            onSubmit(review);
-            if (closeAfterSubmit) {
-              setShowNewReviewForm(false);
+      {
+        (showNewReviewForm && onSubmit) ? <div className='top-0 left-0 w-full h-full fixed flex justify-center items-center'>
+          <div className='absolute top-0 left-0 w-full h-full bg-black opacity-50' onClick={() => setShowNewReviewForm(false)}></div>
+          <ReviewForm onSubmit={(review: Review) => {
+            if (onSubmit) {
+              onSubmit(review);
+              if (closeAfterSubmit) {
+                setShowNewReviewForm(false);
+              }
             }
-          }
-        }} className='bg-slate-900 relative z-[5] p-3 max-w-[500px] w-full'/>
-      </div> : null}
-    </div>
+          }} className='bg-slate-900 relative z-[5] p-3 max-w-[500px] w-full' />
+        </div> : null
+      }
+    </div >
   );
 };

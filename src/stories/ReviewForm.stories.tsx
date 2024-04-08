@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ReviewForm } from '../components/ReviewForm';
 import { Review } from '../types';
-import '../output.css';
+import '../assets/output.css';
 
 let meta = {
     title: 'Example/ReviewForm2',

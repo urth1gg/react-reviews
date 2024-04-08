@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Reviews } from '../components/Reviews';
-import '../output.css';
+import '../assets/output.css';
 import { Review } from '../types';
 import { Stars } from '../components/Review';
 
@@ -124,3 +124,10 @@ export const withSubmit: Story = {
     reviews: reviewsData
   },
 };
+
+export const withNoReviews: Story = {
+  args: {
+    onSubmit: f => f,
+    reviews: []
+  }
+}

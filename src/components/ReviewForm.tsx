@@ -9,7 +9,7 @@ export interface ReviewFormComponentProps {
 
 export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, className }) => {
     const [author, setAuthor] = useState<string>("");
-    const [rating, setRating] = useState<number>(0);
+    const [rating, setRating] = useState<number>(5);
     const [comment, setComment] = useState<string>("");
     const [images, setImages] = useState<File[]>([]);
     function onStarClick(selectedRating: number) {
@@ -32,12 +32,12 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, class
     }
 
     return (
-        <form onSubmit={handleSubmit} className={`max-w-md mx-auto ${className}`}>
+        <form onSubmit={handleSubmit} className={`max-w-md mx-auto ${className ? className:''}`}>
             <div className="mb-4">
                 <label htmlFor="rating" className="block text-white font-bold mb-2">
                     Rating
                 </label>
-                <Stars initialRating={3} maxStars={5} showEmptyStars={true} onStarClick={onStarClick} />
+                <Stars initialRating={5} maxStars={5} showEmptyStars={true} onStarClick={onStarClick} />
             </div>
             <div className="mb-4">
                 <label htmlFor="author" className="block text-white font-bold mb-2">
