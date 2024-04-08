@@ -8532,5 +8532,7 @@ const Reviews = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, class
                 }, className: 'bg-slate-900 relative z-[5] p-3 max-w-[500px] w-full' })) : null));
 };
 
+exports.ReviewForm = ReviewForm;
 exports.Reviews = Reviews;
+exports.Stars = Stars;
 //# sourceMappingURL=index.js.map
