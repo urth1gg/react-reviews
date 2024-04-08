@@ -132,7 +132,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
         ) : null}
       </div>
       {
-        (showNewReviewForm && onSubmit) ? <div className='top-0 left-0 w-full h-full fixed flex justify-center items-center'>
+        (showNewReviewForm && onSubmit) ? <div className='top-0 left-0 w-full h-full fixed flex justify-center items-center z-[5]'>
           <div className='absolute top-0 left-0 w-full h-full bg-black opacity-50' onClick={() => setShowNewReviewForm(false)}></div>
           <ReviewForm onSubmit={(review: Review) => {
             if (onSubmit) {
