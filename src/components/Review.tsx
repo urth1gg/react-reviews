@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React from 'react';
 import type { Review } from '../types/Review';
-import Star from '../assets/star.svg';
+import moment from 'moment';
+import { Stars } from './Stars';
 
 type ReviewComponentProps = {
     review: Review;
@@ -8,35 +9,21 @@ type ReviewComponentProps = {
     className?: string;
 }
 
-type StarsComponentProps = {
-    rating: number;
-    pathToIcon?: string;
-}
-
-const Stars: FC<StarsComponentProps> = ({ rating, pathToIcon }) => {
-    let starsAmount = Math.floor(rating);
-
+const ReviewComponent: React.FC<ReviewComponentProps> = ({ review, pathToIcon, className }) => {
     return (
-        <div className="flex">
-            {Array.from({ length: starsAmount }, (_, index) => (
-                <span key={index}>
-                    <div className='max-w-[50px]'>
-                        <img src={pathToIcon || Star} alt="star" className='max-w-[50px]' />
-                    </div>
-                </span>
-            ))}
-        </div>
-    )
-}
-const ReviewComponent: FC<ReviewComponentProps> = ({ review, pathToIcon, className }) => {
-    return (
-        <div className={`text-white bg-main-light ${className} p-3`}>
-            <h3>{review.author}</h3>
-            <Stars rating={review.rating} pathToIcon={pathToIcon}/>
-            <p>{review.comment}</p>
-            <p>{review.date}</p>
+        <div className={`text-white w-full md:w-6/12 max-w-[400px] bg-main-light ${className} p-5 min-h-[350px] relative`}>
+            <Stars initialRating={review.rating} pathToIcon={pathToIcon} />
+            <h3 className='mt-1'><span className="font-bold">{review.author}</span> - <span className='font-italic'>{moment(review.date, "YYYY-MM-DD").fromNow()}</span></h3>
+            <p className='mt-0'>{review.productName}</p>
+            <hr className='mt-4'/>
+            <p className='mt-4'>{review.comment}</p>
+            <p className='absolute bottom-1 left-1'>{ }</p>
         </div>
     );
 }
 
 export default ReviewComponent;
+
+export {
+    Stars
+}

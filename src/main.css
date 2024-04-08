@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
     background-color: #020617;
+}
+
+.review-enter {
+    opacity: 0;
+    transform: translateX(50%);
+}
+
+.review-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 800ms ease-out, transform 800ms ease-out;
+}
+
+.review-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.review-exit-active {
+    display: none;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 800ms ease-in, transform 800ms ease-in;
 }

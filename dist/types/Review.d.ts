@@ -4,5 +4,7 @@ type Review = {
     rating: number;
     comment: string;
     date: string;
+    productName?: string;
+    images?: File[];
 };
 export type { Review };
