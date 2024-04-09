@@ -627,6 +627,14 @@ video {
   margin-top: auto;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
 .block {
   display: block;
 }
@@ -669,6 +677,26 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[500px\] {
+  width: 500px;
+}
+
+.w-\[800px\] {
+  width: 800px;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.w-\[600px\] {
+  width: 600px;
+}
+
+.w-\[1200px\] {
+  width: 1200px;
 }
 
 .max-w-\[30px\] {

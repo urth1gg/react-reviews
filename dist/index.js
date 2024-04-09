@@ -5733,7 +5733,7 @@ const ReviewComponent = ({ review, pathToIcon, className }) => {
     else if (imagesLength > 3) {
         imageWidthClass = 'w-2/12';
     }
-    return (React.createElement("div", { className: `text-white w-full md:w-6/12 max-w-[400px] bg-main-light ${className} p-5 min-h-[350px] h-auto flex flex-col` },
+    return (React.createElement("div", { className: `text-white max-w-[400px] w-full bg-main-light ${className} p-5 min-h-[350px] h-auto flex flex-col` },
         React.createElement(Stars, { initialRating: review.rating, pathToIcon: pathToIcon }),
         React.createElement("h3", { className: 'mt-1' },
             React.createElement("span", { className: "font-bold" }, review.author),
@@ -8437,7 +8437,7 @@ const ReviewForm = ({ onSubmit, className }) => {
         React.createElement("button", { type: "submit", className: "w-[250px] px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" }, "Submit")));
 };
 
-const Reviews = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, classNameContainer, onSubmit, closeAfterSubmit = true }) => {
+const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSubmit = true, classNameReviewsContainer = '', classNameContainer = '', classNameReview = '' }) => {
     const containerRef = React.useRef(null);
     let sliceLeft = React.useRef(0);
     let sliceRight = React.useRef(3);
@@ -8492,13 +8492,13 @@ const Reviews = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, class
         setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
     }
     let averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
-    return (React.createElement("div", { ref: containerRef, className: "text-white relative w-full" },
+    return (React.createElement("div", { ref: containerRef, className: `text-white relative w-full ml-auto mr-auto ${classNameContainer ? classNameContainer : ''}` },
         React.createElement("h1", { className: 'text-2xl mb-2 font-bold text-center' }, "Customer reviews"),
         reviews.length !== 0 ? React.createElement("div", { className: 'flex justify-center items-center gap-2 mb-5' },
             React.createElement("div", { className: 'flex gap-1' }, Array.from({ length: Math.floor(averageRating) }, (_, index) => (React.createElement("img", { key: index, src: pathToIcon || img$3, alt: "star", className: 'max-w-[30px]' })))),
             React.createElement("span", null, averageRating.toFixed(1))) : React.createElement(React.Fragment, null),
         reviews.length !== 0 ?
-            React.createElement(TransitionGroup$1, { className: `flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameContainer ? classNameContainer : ''}` }, visibleReviews.map((review) => (React.createElement(CSSTransition$1, { key: review.id, timeout: 700, classNames: "review" }, _ReviewComponent ? (React.createElement(_ReviewComponent, { review: review })) : (React.createElement(ReviewComponent, { review: review, pathToIcon: pathToIcon, className: classNameReview })))))) :
+            React.createElement(TransitionGroup$1, { className: `flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameReviewsContainer ? classNameReviewsContainer : ''}` }, visibleReviews.map((review) => (React.createElement(CSSTransition$1, { key: review.id, timeout: 700, classNames: "review" }, _ReviewComponent ? (React.createElement(_ReviewComponent, { review: review })) : (React.createElement(ReviewComponent, { review: review, pathToIcon: pathToIcon, className: classNameReview })))))) :
             React.createElement("div", { className: 'flex justify-center items-center w-full h-full' },
                 React.createElement("h1", { className: 'text-2xl' }, "No reviews yet.")),
         React.createElement("div", { className: 'mt-3 flex justify-center' },

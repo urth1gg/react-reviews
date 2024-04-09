@@ -15,9 +15,19 @@ export interface ReviewsComponentProps {
   _ReviewComponent?: React.FC<{ review: Review }>;
   onSubmit?: (review: Review) => void;
   closeAfterSubmit?: boolean;
+  classNameReviewsContainer?: string;
 }
 
-export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, classNameContainer, onSubmit, closeAfterSubmit = true }) => {
+export const Reviews: React.FC<ReviewsComponentProps> = ({ 
+  reviews, 
+  pathToIcon, 
+  _ReviewComponent, 
+  onSubmit, 
+  closeAfterSubmit = true, 
+  classNameReviewsContainer = '',
+  classNameContainer = '',
+  classNameReview = ''
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   let sliceLeft = useRef(0);
@@ -83,7 +93,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
   let averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
 
   return (
-    <div ref={containerRef} className="text-white relative w-full">
+    <div ref={containerRef} className={`text-white relative w-full ml-auto mr-auto ${classNameContainer ? classNameContainer : ''}`}>
       <h1 className='text-2xl mb-2 font-bold text-center'>Customer reviews</h1>
 
       {reviews.length !== 0 ? <div className='flex justify-center items-center gap-2 mb-5'>
@@ -95,7 +105,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
         <span>{averageRating.toFixed(1)}</span>
       </div> : <></>}
       {reviews.length !== 0 ?
-        <TransitionGroup className={`flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameContainer ? classNameContainer : ''}`}>
+        <TransitionGroup className={`flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameReviewsContainer ? classNameReviewsContainer : ''}`}>
           {visibleReviews.map((review: Review) => (
             <CSSTransition key={review.id} timeout={700} classNames="review">
               {_ReviewComponent ? (

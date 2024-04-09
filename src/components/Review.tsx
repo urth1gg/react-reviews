@@ -22,7 +22,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ review, pathToIcon, c
 
     return (
         <div
-            className={`text-white w-full md:w-6/12 max-w-[400px] bg-main-light ${className} p-5 min-h-[350px] h-auto flex flex-col`}
+            className={`text-white max-w-[400px] w-full bg-main-light ${className} p-5 min-h-[350px] h-auto flex flex-col`}
         >
             <Stars initialRating={review.rating} pathToIcon={pathToIcon} />
             <h3 className='mt-1'>

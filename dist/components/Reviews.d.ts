@@ -10,5 +10,6 @@ export interface ReviewsComponentProps {
     }>;
     onSubmit?: (review: Review) => void;
     closeAfterSubmit?: boolean;
+    classNameReviewsContainer?: string;
 }
 export declare const Reviews: React.FC<ReviewsComponentProps>;
