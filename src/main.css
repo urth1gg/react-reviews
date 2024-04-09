@@ -17,12 +17,13 @@ body{
 }
 
 .review-exit {
+    display: none;
     opacity: 1;
     transform: translateX(0);
 }
 
 .review-exit-active {
-    display: none;
+    display: none !important;
     opacity: 0;
     transform: translateX(-50%);
     transition: opacity 800ms ease-in, transform 800ms ease-in;

@@ -163,6 +163,6 @@ export const withImages: Story = {
 export const withContainerWidth: Story = {
   args: {
     reviews: reviewsData,
-    classNameContainer: 'w-[1200px]'
+    classNameContainer: 'w-[663px]'
   }
 }

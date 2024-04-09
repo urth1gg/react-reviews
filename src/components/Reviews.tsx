@@ -18,12 +18,12 @@ export interface ReviewsComponentProps {
   classNameReviewsContainer?: string;
 }
 
-export const Reviews: React.FC<ReviewsComponentProps> = ({ 
-  reviews, 
-  pathToIcon, 
-  _ReviewComponent, 
-  onSubmit, 
-  closeAfterSubmit = true, 
+export const Reviews: React.FC<ReviewsComponentProps> = ({
+  reviews,
+  pathToIcon,
+  _ReviewComponent,
+  onSubmit,
+  closeAfterSubmit = true,
   classNameReviewsContainer = '',
   classNameContainer = '',
   classNameReview = ''
@@ -158,6 +158,6 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
           }} className='bg-slate-900 relative z-[5] p-3 max-w-[500px] w-full' />
         </div> : null
       }
-    </div >
+    </div>
   );
 };
