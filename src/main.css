@@ -1,5 +1,3 @@
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
 body{
@@ -17,7 +15,7 @@ body{
 }
 
 .review-exit {
-    display: none;
+    display: none !important;
     opacity: 1;
     transform: translateX(0);
 }
