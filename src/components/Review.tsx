@@ -13,9 +13,9 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ review, pathToIcon, c
 
     let imagesLength = review.images ? review.images.length : 0;
     let imageWidthClass = '';
-    if(imagesLength > 0 && imagesLength <= 3) {
+    if (imagesLength > 0 && imagesLength <= 3) {
         imageWidthClass = 'w-3/12';
-    }else if(imagesLength > 3) {
+    } else if (imagesLength > 3) {
         imageWidthClass = 'w-2/12';
     }
 
@@ -33,11 +33,18 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ review, pathToIcon, c
             <hr className='mt-4' />
             <p className='mt-4'>{review.comment}</p>
             <div className='mt-auto flex flex-wrap w-full'>
-                {review.images ? (
-                    review.images.map((image, index) => (
-                        <a key={index} href={image.toString()} target='_blank' rel='noreferrer' className={`${imageWidthClass}`}>
-                            <img key={index} src={image.toString()} alt="review" className='w-full' />
-                        </a>
+                {Array.isArray(review.images) ? (
+                    review.images.map((image: File | string, index: number) => (
+                        typeof image === 'string' ? (
+                            <a key={index} href={image} target="_blank" rel="noreferrer" className={`${imageWidthClass}`}>
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt="review"
+                                    className="w-full"
+                                />
+                            </a>
+                        ) : null
                     ))
                 ) : (
                     <></>
