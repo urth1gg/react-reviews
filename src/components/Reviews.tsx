@@ -18,6 +18,8 @@ export interface ReviewsComponentProps {
 }
 
 export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, classNameContainer, onSubmit, closeAfterSubmit = true }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   let sliceLeft = useRef(0);
   let sliceRight = useRef(3);
   let [showNewReviewForm, setShowNewReviewForm] = useState(false);
@@ -26,12 +28,13 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
 
   useEffect(() => {
     sliceLeft.current = 0;
+    const containerWidth = containerRef.current?.getBoundingClientRect().width || 0;
 
-    if (window.innerWidth >= 0 && window.innerWidth < 640) {
+    if (containerWidth >= 0 && containerWidth < 640) {
       sliceRight.current = 1;
-    } else if (window.innerWidth >= 640 && window.innerWidth < 1200) {
+    } else if (containerWidth >= 640 && containerWidth < 1200) {
       sliceRight.current = 2;
-    } else if (window.innerWidth >= 1200) {
+    } else if (containerWidth >= 1200) {
       sliceRight.current = 3;
     }
 
@@ -39,19 +42,20 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
   }, [reviews]);
 
   useEffect(() => {
-    let resizeListener = () => {
-      sliceLeft.current = 0
+    const resizeListener = () => {
+      sliceLeft.current = 0;
+      const containerWidth = containerRef.current?.getBoundingClientRect().width || 0;
 
-      if (window.innerWidth >= 0 && window.innerWidth < 640) {
+      if (containerWidth >= 0 && containerWidth < 640) {
         sliceRight.current = 1;
-      } else if (window.innerWidth >= 640 && window.innerWidth < 1200) {
+      } else if (containerWidth >= 640 && containerWidth < 1200) {
         sliceRight.current = 2;
-      } else if (window.innerWidth >= 1200) {
+      } else if (containerWidth >= 1200) {
         sliceRight.current = 3;
       }
 
       setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
-    }
+    };
 
     window.addEventListener('resize', resizeListener);
     return () => window.removeEventListener('resize', resizeListener);
@@ -79,7 +83,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({ reviews, pathToIcon, 
   let averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
 
   return (
-    <div className="text-white relative w-full">
+    <div ref={containerRef} className="text-white relative w-full">
       <h1 className='text-2xl mb-2 font-bold text-center'>Customer reviews</h1>
 
       {reviews.length !== 0 ? <div className='flex justify-center items-center gap-2 mb-5'>

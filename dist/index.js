@@ -8438,33 +8438,38 @@ const ReviewForm = ({ onSubmit, className }) => {
 };
 
 const Reviews = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, classNameContainer, onSubmit, closeAfterSubmit = true }) => {
+    const containerRef = React.useRef(null);
     let sliceLeft = React.useRef(0);
     let sliceRight = React.useRef(3);
     let [showNewReviewForm, setShowNewReviewForm] = React.useState(false);
     const [visibleReviews, setVisibleReviews] = React.useState([]);
     React.useEffect(() => {
+        var _a;
         sliceLeft.current = 0;
-        if (window.innerWidth >= 0 && window.innerWidth < 640) {
+        const containerWidth = ((_a = containerRef.current) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect().width) || 0;
+        if (containerWidth >= 0 && containerWidth < 640) {
             sliceRight.current = 1;
         }
-        else if (window.innerWidth >= 640 && window.innerWidth < 1200) {
+        else if (containerWidth >= 640 && containerWidth < 1200) {
             sliceRight.current = 2;
         }
-        else if (window.innerWidth >= 1200) {
+        else if (containerWidth >= 1200) {
             sliceRight.current = 3;
         }
         setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
     }, [reviews]);
     React.useEffect(() => {
-        let resizeListener = () => {
+        const resizeListener = () => {
+            var _a;
             sliceLeft.current = 0;
-            if (window.innerWidth >= 0 && window.innerWidth < 640) {
+            const containerWidth = ((_a = containerRef.current) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect().width) || 0;
+            if (containerWidth >= 0 && containerWidth < 640) {
                 sliceRight.current = 1;
             }
-            else if (window.innerWidth >= 640 && window.innerWidth < 1200) {
+            else if (containerWidth >= 640 && containerWidth < 1200) {
                 sliceRight.current = 2;
             }
-            else if (window.innerWidth >= 1200) {
+            else if (containerWidth >= 1200) {
                 sliceRight.current = 3;
             }
             setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
@@ -8487,7 +8492,7 @@ const Reviews = ({ reviews, pathToIcon, classNameReview, _ReviewComponent, class
         setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
     }
     let averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
-    return (React.createElement("div", { className: "text-white relative w-full" },
+    return (React.createElement("div", { ref: containerRef, className: "text-white relative w-full" },
         React.createElement("h1", { className: 'text-2xl mb-2 font-bold text-center' }, "Customer reviews"),
         reviews.length !== 0 ? React.createElement("div", { className: 'flex justify-center items-center gap-2 mb-5' },
             React.createElement("div", { className: 'flex gap-1' }, Array.from({ length: Math.floor(averageRating) }, (_, index) => (React.createElement("img", { key: index, src: pathToIcon || img$3, alt: "star", className: 'max-w-[30px]' })))),
