@@ -1,4 +1,3 @@
-import './assets/output.css';
 import { Reviews } from './components/Reviews';
 import { Review } from './types/Review';
 import { ReviewForm } from './components/ReviewForm';

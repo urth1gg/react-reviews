@@ -13,3 +13,4 @@ export declare const withBackground: Story;
 export declare const withComponent: Story;
 export declare const withSubmit: Story;
 export declare const withNoReviews: Story;
+export declare const withImages: Story;
