@@ -8431,93 +8431,67 @@ const ReviewForm = ({ onSubmit, className }) => {
             React.createElement("input", { type: "file", id: "images", className: "flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-main-light file:text-white file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-white bg-slate-800", multiple: true, onChange: (event) => {
                     if (event.target.files) {
                         setImages(Array.from(event.target.files));
-                        console.log(Array.from(event.target.files));
                     }
                 } })),
         React.createElement("button", { type: "submit", className: "w-[250px] px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" }, "Submit")));
 };
 
-const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSubmit = true, classNameReviewsContainer = '', classNameContainer = '', classNameReview = '' }) => {
+const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSubmit = true, classNameReviewsContainer = '', classNameContainer = '', classNameReview = '', }) => {
+    var _a, _b, _c, _d;
     const containerRef = React.useRef(null);
-    let sliceLeft = React.useRef(0);
-    let sliceRight = React.useRef(3);
-    let [showNewReviewForm, setShowNewReviewForm] = React.useState(false);
+    const [showNewReviewForm, setShowNewReviewForm] = React.useState(false);
     const [visibleReviews, setVisibleReviews] = React.useState([]);
+    const [direction, setDirection] = React.useState('right');
+    const updateVisibleReviews = (containerWidth) => {
+        const sliceRight = containerWidth < 640 ? 1 : containerWidth < 1200 ? 2 : 3;
+        setVisibleReviews(reviews.slice(0, sliceRight));
+    };
     React.useEffect(() => {
         var _a;
-        sliceLeft.current = 0;
         const containerWidth = ((_a = containerRef.current) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect().width) || 0;
-        if (containerWidth >= 0 && containerWidth < 640) {
-            sliceRight.current = 1;
-        }
-        else if (containerWidth >= 640 && containerWidth < 1200) {
-            sliceRight.current = 2;
-        }
-        else if (containerWidth >= 1200) {
-            sliceRight.current = 3;
-        }
-        setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
-    }, [reviews]);
-    React.useEffect(() => {
-        const resizeListener = () => {
+        updateVisibleReviews(containerWidth);
+        const handleResize = () => {
             var _a;
-            sliceLeft.current = 0;
             const containerWidth = ((_a = containerRef.current) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect().width) || 0;
-            if (containerWidth >= 0 && containerWidth < 640) {
-                sliceRight.current = 1;
-            }
-            else if (containerWidth >= 640 && containerWidth < 1200) {
-                sliceRight.current = 2;
-            }
-            else if (containerWidth >= 1200) {
-                sliceRight.current = 3;
-            }
-            setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
+            updateVisibleReviews(containerWidth);
         };
-        window.addEventListener('resize', resizeListener);
-        return () => window.removeEventListener('resize', resizeListener);
-    }, []);
-    function handlePrevClick() {
-        let currentRange = sliceRight.current - sliceLeft.current;
-        sliceLeft.current = Math.max(0, sliceLeft.current - currentRange);
-        sliceRight.current = Math.max(currentRange, sliceRight.current - currentRange);
-        setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
-    }
-    function handleNextClick() {
-        let currentRange = sliceRight.current - sliceLeft.current;
-        if (sliceLeft.current + currentRange >= reviews.length)
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [reviews]);
+    const handleNavigate = (direction) => {
+        if (reviews.length === 0)
             return;
-        sliceLeft.current = sliceLeft.current + currentRange;
-        sliceRight.current = sliceRight.current + currentRange;
-        setVisibleReviews(reviews.slice(sliceLeft.current, sliceRight.current));
-    }
-    let averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
-    return (React.createElement("div", { ref: containerRef, className: `text-white relative w-full ml-auto mr-auto ${classNameContainer ? classNameContainer : ''}` },
-        React.createElement("h1", { className: 'text-2xl mb-2 font-bold text-center' }, "Customer reviews"),
-        reviews.length !== 0 ? React.createElement("div", { className: 'flex justify-center items-center gap-2 mb-5' },
-            React.createElement("div", { className: 'flex gap-1' }, Array.from({ length: Math.floor(averageRating) }, (_, index) => (React.createElement("img", { key: index, src: pathToIcon || img$3, alt: "star", className: 'max-w-[30px]' })))),
-            React.createElement("span", null, averageRating.toFixed(1))) : React.createElement(React.Fragment, null),
-        reviews.length !== 0 ?
-            React.createElement(TransitionGroup$1, { className: `flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameReviewsContainer ? classNameReviewsContainer : ''}` }, visibleReviews.map((review) => (React.createElement(CSSTransition$1, { key: review.id, timeout: 700, classNames: "review" }, _ReviewComponent ? (React.createElement(_ReviewComponent, { review: review })) : (React.createElement(ReviewComponent, { review: review, pathToIcon: pathToIcon, className: classNameReview })))))) :
-            React.createElement("div", { className: 'flex justify-center items-center w-full h-full' },
-                React.createElement("h1", { className: 'text-2xl' }, "No reviews yet.")),
-        React.createElement("div", { className: 'mt-3 flex justify-center' },
-            reviews.length !== 0 ? React.createElement(React.Fragment, null,
-                React.createElement("button", { className: "text-white font-bold rounded mr-3 bg-main-light p-3", onClick: handlePrevClick },
-                    React.createElement("img", { src: img, alt: "left", className: 'max-w-[30px] w-[30px]' })),
-                React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3", onClick: handleNextClick },
-                    React.createElement("img", { src: img$1, alt: "right", className: 'max-w-[30px] w-[30px]' }))) : React.createElement(React.Fragment, null),
-            onSubmit ? (React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3 ml-3 mt-0", onClick: () => setShowNewReviewForm(!showNewReviewForm) }, showNewReviewForm ? 'Close' : 'Add Review')) : null),
-        (showNewReviewForm && onSubmit) ? React.createElement("div", { className: 'top-0 left-0 w-full h-full fixed flex justify-center items-center z-[5]' },
-            React.createElement("div", { className: 'absolute top-0 left-0 w-full h-full bg-black opacity-50', onClick: () => setShowNewReviewForm(false) }),
+        const currentIndex = reviews.findIndex((review) => review.id === visibleReviews[0].id);
+        const newIndex = direction === 'left'
+            ? Math.max(0, currentIndex - visibleReviews.length)
+            : Math.min(reviews.length - visibleReviews.length, currentIndex + visibleReviews.length);
+        setVisibleReviews(reviews.slice(newIndex, newIndex + visibleReviews.length));
+        setDirection(direction);
+    };
+    const averageRating = reviews.length ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length : 0;
+    return (React.createElement("div", { ref: containerRef, className: `text-white relative w-full ml-auto mr-auto ${classNameContainer}` },
+        React.createElement("h1", { className: "text-2xl mb-2 font-bold text-center" }, "Customer reviews"),
+        reviews.length > 0 && (React.createElement(React.Fragment, null,
+            React.createElement("div", { className: "flex justify-center items-center gap-2 mb-5" },
+                React.createElement("div", { className: "flex gap-1" }, [...Array(Math.floor(averageRating))].map((_, index) => (React.createElement("img", { key: index, src: pathToIcon || img$3, alt: "star", className: "max-w-[30px]" })))),
+                React.createElement("span", null, averageRating.toFixed(1))),
+            React.createElement(TransitionGroup$1, { className: `flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameReviewsContainer}`, style: {
+                    '--enter-transform': direction === 'left' ? '-50%' : '50%',
+                    '--exit-transform': direction === 'left' ? '50%' : '-50%',
+                } }, visibleReviews.map((review) => (React.createElement(CSSTransition$1, { key: review.id, timeout: 700, classNames: "review" }, _ReviewComponent ? (React.createElement(_ReviewComponent, { review: review })) : (React.createElement(ReviewComponent, { review: review, pathToIcon: pathToIcon, className: classNameReview })))))),
+            React.createElement("div", { className: "mt-3 flex justify-center" },
+                React.createElement("button", { className: "reviews-btn text-white font-bold rounded mr-3 bg-main-light p-3", onClick: () => handleNavigate('left'), disabled: reviews.length === 0 || ((_a = visibleReviews[0]) === null || _a === void 0 ? void 0 : _a.id) === ((_b = reviews[0]) === null || _b === void 0 ? void 0 : _b.id) },
+                    React.createElement("img", { src: img, alt: "left", className: "max-w-[30px] w-[30px]" })),
+                React.createElement("button", { className: "reviews-btn text-white font-bold rounded bg-main-light p-3", onClick: () => handleNavigate('right'), disabled: reviews.length === 0 || ((_c = visibleReviews[visibleReviews.length - 1]) === null || _c === void 0 ? void 0 : _c.id) === ((_d = reviews[reviews.length - 1]) === null || _d === void 0 ? void 0 : _d.id) },
+                    React.createElement("img", { src: img$1, alt: "right", className: "max-w-[30px] w-[30px]" }))))),
+        reviews.length === 0 && React.createElement("p", { className: "text-center text-xl" }, "No reviews yet."),
+        onSubmit && (React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3 mt-3 mx-auto block", onClick: () => setShowNewReviewForm(!showNewReviewForm) }, showNewReviewForm ? 'Close' : 'Add Review')),
+        showNewReviewForm && onSubmit && (React.createElement("div", { className: "fixed top-0 left-0 w-full h-full flex justify-center items-center z-50" },
+            React.createElement("div", { className: "absolute top-0 left-0 w-full h-full bg-black opacity-50", onClick: () => setShowNewReviewForm(false) }),
             React.createElement(ReviewForm, { onSubmit: (review) => {
-                    if (onSubmit) {
-                        onSubmit(review);
-                        if (closeAfterSubmit) {
-                            setShowNewReviewForm(false);
-                        }
-                    }
-                }, className: 'bg-slate-900 relative z-[5] p-3 max-w-[500px] w-full' })) : null));
+                    onSubmit(review);
+                    closeAfterSubmit && setShowNewReviewForm(false);
+                }, className: "bg-slate-900 relative z-10 p-3 max-w-[500px] w-full" })))));
 };
 
 exports.ReviewForm = ReviewForm;
