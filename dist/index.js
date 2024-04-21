@@ -5743,8 +5743,8 @@ const ReviewComponent = ({ review, pathToIcon, className }) => {
         React.createElement("p", { className: 'mt-0' }, review.productName),
         React.createElement("hr", { className: 'mt-4' }),
         React.createElement("p", { className: 'mt-4' }, review.comment),
-        React.createElement("div", { className: 'mt-auto flex flex-wrap w-full' }, review.images ? (review.images.map((image, index) => (React.createElement("a", { key: index, href: image.toString(), target: '_blank', rel: 'noreferrer', className: `${imageWidthClass}` },
-            React.createElement("img", { key: index, src: image.toString(), alt: "review", className: 'w-full' }))))) : (React.createElement(React.Fragment, null)))));
+        React.createElement("div", { className: 'mt-auto flex flex-wrap w-full' }, Array.isArray(review.images) ? (review.images.map((image, index) => (typeof image === 'string' ? (React.createElement("a", { key: index, href: image, target: "_blank", rel: "noreferrer", className: `${imageWidthClass}` },
+            React.createElement("img", { key: index, src: image, alt: "review", className: "w-full" }))) : null))) : (React.createElement(React.Fragment, null)))));
 };
 
 function _extends() {

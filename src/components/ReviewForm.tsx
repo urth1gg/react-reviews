@@ -76,7 +76,6 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, class
                     onChange={(event) => {
                         if (event.target.files) {
                             setImages(Array.from(event.target.files));
-                            console.log(Array.from(event.target.files));
                         }
                     }}
                 />

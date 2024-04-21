@@ -5,6 +5,6 @@ type Review = {
     comment: string;
     date: string;
     productName?: string;
-    images?: File[] | string[];
+    images?: File[] | string[] | string;
 };
 export type { Review };

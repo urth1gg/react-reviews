@@ -1,11 +1,11 @@
 @tailwind utilities;
+@tailwind base;
+@tailwind components;
 
-body{
-    @apply bg-slate-950
-}
+
 .review-enter {
     opacity: 0;
-    transform: translateX(50%);
+    transform: translateX(var(--enter-transform));
 }
 
 .review-enter-active {
@@ -23,6 +23,10 @@ body{
 .review-exit-active {
     display: none !important;
     opacity: 0;
-    transform: translateX(-50%);
+    transform: translateX(var(--exit-transform));
     transition: opacity 800ms ease-in, transform 800ms ease-in;
+}
+
+.reviews-btn:disabled{
+    opacity: 0.75;
 }
