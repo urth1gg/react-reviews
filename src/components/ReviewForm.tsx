@@ -5,9 +5,22 @@ import { Stars } from "./Stars";
 export interface ReviewFormComponentProps {
     onSubmit: (review: Review) => void;
     className?: string;
+    commentText?: string;
+    ratingText?: string;
+    authorText?: string;
+    imagesText?: string;
+    submitText?: string;
 }
 
-export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, className }) => {
+export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ 
+    onSubmit, 
+    className,
+    commentText,
+    ratingText,
+    authorText,
+    imagesText,
+    submitText
+}) => {
     const [author, setAuthor] = useState<string>("");
     const [rating, setRating] = useState<number>(5);
     const [comment, setComment] = useState<string>("");
@@ -35,13 +48,13 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, class
         <form onSubmit={handleSubmit} className={`max-w-md mx-auto ${className ? className:''}`}>
             <div className="mb-4">
                 <label htmlFor="rating" className="block text-white font-bold mb-2">
-                    Rating
+                    {ratingText}
                 </label>
                 <Stars initialRating={5} maxStars={5} showEmptyStars={true} onStarClick={onStarClick} />
             </div>
             <div className="mb-4">
                 <label htmlFor="author" className="block text-white font-bold mb-2">
-                    Author
+                    {authorText}
                 </label>
                 <input
                     type="text"
@@ -54,7 +67,7 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, class
             </div>
             <div className="mb-4">
                 <label htmlFor="comment" className="block text-white font-bold mb-2">
-                    Comment
+                    {commentText}
                 </label>
                 <textarea
                     id="comment"
@@ -66,7 +79,7 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, class
             </div>
             <div className="mb-4">
                 <label htmlFor="comment" className="block text-white font-bold mb-2">
-                    Images
+                    {imagesText}
                 </label>
                 <input
                     type="file"
@@ -84,7 +97,7 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({ onSubmit, class
                 type="submit"
                 className="w-[250px] px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             >
-                Submit
+                {submitText}
             </button>
         </form>
     );

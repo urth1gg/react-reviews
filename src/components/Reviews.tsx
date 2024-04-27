@@ -16,6 +16,14 @@ export interface ReviewsComponentProps {
   onSubmit?: (review: Review) => void;
   closeAfterSubmit?: boolean;
   classNameReviewsContainer?: string;
+  noReviewsText?: string;
+  sectionTitleText?: string;
+  addReviewButtonText?: string;
+  commentText?: string;
+  ratingText?: string;
+  authorText?: string;
+  imagesText?: string;
+  submitText?: string;
 }
 
 export const Reviews: React.FC<ReviewsComponentProps> = ({
@@ -26,7 +34,15 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
   closeAfterSubmit = true,
   classNameReviewsContainer = '',
   classNameContainer = '',
-  classNameReview = ''
+  classNameReview = '',
+  noReviewsText = 'No reviews yet.',
+  sectionTitleText = 'Customer reviews',
+  addReviewButtonText = 'Add review',
+  commentText = 'Comment',
+  ratingText = 'Rating',
+  authorText = 'Author',
+  imagesText = 'Images',
+  submitText = 'Submit',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sliceLeft = useRef(0);
@@ -83,7 +99,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
 
   return (
     <div ref={containerRef} className={`text-white relative w-full ml-auto mr-auto ${classNameContainer}`}>
-      <h1 className="text-2xl mb-2 font-bold text-center">Customer reviews</h1>
+      <h1 className="text-2xl mb-2 font-bold text-center">{sectionTitleText}</h1>
 
       {reviews.length > 0 && (
         <div className="flex justify-center items-center gap-2 mb-5">
@@ -116,7 +132,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
         </TransitionGroup>
       ) : (
         <div className="flex justify-center items-center w-full h-full">
-          <h1 className="text-2xl">No reviews yet.</h1>
+          <h1 className="text-2xl">{noReviewsText}</h1>
         </div>
       )}
 
@@ -136,7 +152,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
             className="text-white font-bold rounded bg-main-light p-3 ml-3 mt-0"
             onClick={() => setShowNewReviewForm(!showNewReviewForm)}
           >
-            {showNewReviewForm ? 'Close' : 'Add Review'}
+            {addReviewButtonText}
           </button>
         )}
       </div>
@@ -145,6 +161,11 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
         <div className="top-0 left-0 w-full h-full fixed flex justify-center items-center z-[5]">
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50" onClick={() => setShowNewReviewForm(false)}></div>
           <ReviewForm
+            commentText={commentText}
+            ratingText={ratingText}
+            authorText={authorText}
+            imagesText={imagesText}
+            submitText={submitText}
             onSubmit={(review) => {
               onSubmit(review);
               if (closeAfterSubmit) {
