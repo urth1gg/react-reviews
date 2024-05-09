@@ -5724,7 +5724,7 @@ const Stars = ({ initialRating = 0, pathToIcon, pathToEmptyIcon, maxStars = 5, s
     })));
 };
 
-const ReviewComponent = ({ review, pathToIcon, className }) => {
+const ReviewComponent = ({ review, pathToIcon, className, onReadMoreClick }) => {
     let imagesLength = review.images ? review.images.length : 0;
     let imageWidthClass = '';
     if (imagesLength > 0 && imagesLength <= 3) {
@@ -5733,16 +5733,23 @@ const ReviewComponent = ({ review, pathToIcon, className }) => {
     else if (imagesLength > 3) {
         imageWidthClass = 'w-2/12';
     }
-    return (React.createElement("div", { className: `text-white max-w-[400px] w-full bg-main-light ${className} p-5 min-h-[350px] h-auto flex flex-col` },
+    return (React.createElement("div", { className: `text-white max-w-[400px] w-full bg-main-light ${className} p-5 min-h-[350px] max-h-[350px] flex flex-col` },
         React.createElement(Stars, { initialRating: review.rating, pathToIcon: pathToIcon }),
         React.createElement("h3", { className: 'mt-1' },
             React.createElement("span", { className: "font-bold" }, review.author),
             " -",
             ' ',
             React.createElement("span", { className: 'font-italic' }, moment(review.date, "YYYY-MM-DD").fromNow())),
-        React.createElement("p", { className: 'mt-0' }, review.productName),
-        React.createElement("hr", { className: 'mt-4' }),
-        React.createElement("p", { className: 'mt-4' }, review.comment),
+        review.productName ?
+            React.createElement("p", { className: 'mt-0 review__productName' }, review.productName)
+            : React.createElement(React.Fragment, null),
+        React.createElement("hr", { className: 'mt-1 w-full' }),
+        React.createElement("p", { className: 'mt-4 review__comment' },
+            review.comment.substr(0, 350),
+            review.comment.length > 350 ? '...' : ''),
+        React.createElement("p", { className: "mt-0 text-lg mb-1 review__read-more" }, review.comment.length > 350 ?
+            React.createElement("button", { className: 'bg-transparent text-white font-bold outline-none border-none text-lg ml-0 mr-0 p-0', onClick: () => onReadMoreClick && onReadMoreClick(review.comment) }, "Read More")
+            : React.createElement(React.Fragment, null)),
         React.createElement("div", { className: 'mt-auto flex flex-wrap w-full' }, Array.isArray(review.images) ? (review.images.map((image, index) => (typeof image === 'string' ? (React.createElement("a", { key: index, href: image, target: "_blank", rel: "noreferrer", className: `${imageWidthClass}` },
             React.createElement("img", { key: index, src: image, alt: "review", className: "w-full" }))) : null))) : (React.createElement(React.Fragment, null)))));
 };
@@ -8436,7 +8443,7 @@ const ReviewForm = ({ onSubmit, className, commentText, ratingText, authorText, 
         React.createElement("button", { type: "submit", className: "w-[250px] px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" }, submitText)));
 };
 
-const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSubmit = true, classNameReviewsContainer = '', classNameContainer = '', classNameReview = '', noReviewsText = 'No reviews yet.', sectionTitleText = 'Customer reviews', addReviewButtonText = 'Add review', commentText = 'Comment', ratingText = 'Rating', authorText = 'Author', imagesText = 'Images', submitText = 'Submit', }) => {
+const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSubmit = true, classNameReviewsContainer = '', classNameContainer = '', classNameReview = '', noReviewsText = 'No reviews yet.', sectionTitleText = 'Customer reviews', addReviewButtonText = 'Add review', commentText = 'Comment', ratingText = 'Rating', authorText = 'Author', imagesText = 'Images', submitText = 'Submit', onReadMoreClick, }) => {
     const containerRef = React.useRef(null);
     const sliceLeft = React.useRef(0);
     const sliceRight = React.useRef(3);
@@ -8492,7 +8499,7 @@ const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSu
         reviews.length > 0 ? (React.createElement(TransitionGroup$1, { className: `flex gap-3 w-full justify-center items-center min-h-[350px] ${classNameReviewsContainer}`, style: {
                 '--enter-transform': direction === 'left' ? '-50%' : '50%',
                 '--exit-transform': direction === 'left' ? '50%' : '-50%',
-            } }, visibleReviews.map((review) => (React.createElement(CSSTransition$1, { key: review.id, timeout: 700, classNames: "review" }, _ReviewComponent ? (React.createElement(_ReviewComponent, { review: review })) : (React.createElement(ReviewComponent, { review: review, pathToIcon: pathToIcon, className: classNameReview }))))))) : (React.createElement("div", { className: "flex justify-center items-center w-full h-full" },
+            } }, visibleReviews.map((review) => (React.createElement(CSSTransition$1, { key: review.id, timeout: 700, classNames: "review" }, _ReviewComponent ? (React.createElement(_ReviewComponent, { review: review })) : (React.createElement(ReviewComponent, { review: review, pathToIcon: pathToIcon, className: classNameReview, onReadMoreClick: onReadMoreClick }))))))) : (React.createElement("div", { className: "flex justify-center items-center w-full h-full" },
             React.createElement("h1", { className: "text-2xl" }, noReviewsText))),
         React.createElement("div", { className: "mt-3 flex justify-center" },
             reviews.length > 0 && (React.createElement(React.Fragment, null,

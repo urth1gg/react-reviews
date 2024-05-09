@@ -5,6 +5,7 @@ type ReviewComponentProps = {
     review: Review;
     pathToIcon?: string;
     className?: string;
+    onReadMoreClick?: (comment: string) => void;
 };
 declare const ReviewComponent: React.FC<ReviewComponentProps>;
 export default ReviewComponent;

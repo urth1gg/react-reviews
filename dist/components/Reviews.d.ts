@@ -19,5 +19,6 @@ export interface ReviewsComponentProps {
     authorText?: string;
     imagesText?: string;
     submitText?: string;
+    onReadMoreClick?: (comment: string) => void;
 }
 export declare const Reviews: React.FC<ReviewsComponentProps>;
