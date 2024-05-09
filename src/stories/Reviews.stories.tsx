@@ -40,6 +40,13 @@ let reviewsData = [
     comment: 'This is a great product!',
     rating: 4,
     date: '2021-01-01',
+  },
+  {
+    id: 5,
+    author: 'Long Comment',
+    comment: "It is a great shirt, and the print quality was almost perfect (I am not sure if this is a result of the printing, but the edges were slightly soft in one direction, making me think the back-and-forth printing started and stopped in a certain direction.).The shirt feels slightly tighter than other shirts of the same size. I think the Bella + Canvas 3001 is very true to size but leaning towards smaller. Washing might shrink things up slightly, which makes it feel a tad tighter. If you want a good fitted feel but not super tight, I might suggest going up in size.It is a great shirt, and the print quality was almost perfect (I am not sure if this is a result of the printing, but the edges were slightly soft in one direction, making me think the back-and-forth printing started and stopped in a certain direction.).The shirt feels slightly tighter than other shirts of the same size. I think the Bella + Canvas 3001 is very true to size but leaning towards smaller. Washing might shrink things up slightly, which makes it feel a tad tighter. If you want a good fitted feel but not super tight, I might suggest going up in size.",
+    rating: 4,
+    date: '2021-01-01',
   }
 ];
 
@@ -114,6 +121,13 @@ export const withComponent: Story = {
         rating: 5,
         date: '2021-01-02',
       },
+      {
+        id: 5,
+        author: 'Long Comment',
+        comment: "It is a great shirt, and the print quality was almost perfect (I am not sure if this is a result of the printing, but the edges were slightly soft in one direction, making me think the back-and-forth printing started and stopped in a certain direction.).The shirt feels slightly tighter than other shirts of the same size. I think the Bella + Canvas 3001 is very true to size but leaning towards smaller. Washing might shrink things up slightly, which makes it feel a tad tighter. If you want a good fitted feel but not super tight, I might suggest going up in size.",
+        rating: 4,
+        date: '2021-01-01',
+      }
     ],
   },
 };
@@ -156,6 +170,15 @@ export const withImages: Story = {
         date: '2021-01-01',
         images: images.slice(0, 5)
       },
+      {
+        id: 2,
+        author: 'John Doe',
+        comment: "It is a great shirt, and the print quality was almost perfect (I am not sure if this is a result of the printing, but the edges were slightly soft in one direction, making me think the back-and-forth printing started and stopped in a certain direction.).The shirt feels slightly tighter than other shirts of the same size. I think the Bella + Canvas 3001 is very true to size but leaning towards smaller. Washing might shrink things up slightly, which makes it feel a tad tighter. If you want a good fitted feel but not super tight, I might suggest going up in size.",
+        rating: 4,
+        date: '2021-01-01',
+        productName: 'Bella + Canvas 3001',
+        images: images.slice(0, 5)
+      }
     ]
   }
 }

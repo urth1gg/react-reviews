@@ -8394,7 +8394,7 @@ var img$1 = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='utf-8'%3f%3e%3
 
 var img = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='utf-8'%3f%3e%3c!-- Uploaded to: SVG Repo%2c www.svgrepo.com%2c Generator: SVG Repo Mixer Tools --%3e%3csvg fill='white' width='800px' height='800px' viewBox='0 0 32 32' version='1.1' xmlns='http://www.w3.org/2000/svg'%3e %3cpath d='M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM23.010 14.989h-11.264l3.617-3.617c0.39-0.39 0.39-1.024 0-1.414s-1.024-0.39-1.414 0l-5.907 6.062 5.907 6.063c0.195 0.195 0.451 0.293 0.707 0.293s0.511-0.098 0.707-0.293c0.39-0.39 0.39-1.023 0-1.414l-3.68-3.68h11.327c0.552 0 1-0.448 1-1s-0.448-1-1-1z'%3e%3c/path%3e%3c/svg%3e";
 
-const ReviewForm = ({ onSubmit, className }) => {
+const ReviewForm = ({ onSubmit, className, commentText, ratingText, authorText, imagesText, submitText }) => {
     const [author, setAuthor] = React.useState("");
     const [rating, setRating] = React.useState(5);
     const [comment, setComment] = React.useState("");
@@ -8418,25 +8418,25 @@ const ReviewForm = ({ onSubmit, className }) => {
     }
     return (React.createElement("form", { onSubmit: handleSubmit, className: `max-w-md mx-auto ${className ? className : ''}` },
         React.createElement("div", { className: "mb-4" },
-            React.createElement("label", { htmlFor: "rating", className: "block text-white font-bold mb-2" }, "Rating"),
+            React.createElement("label", { htmlFor: "rating", className: "block text-white font-bold mb-2" }, ratingText),
             React.createElement(Stars, { initialRating: 5, maxStars: 5, showEmptyStars: true, onStarClick: onStarClick })),
         React.createElement("div", { className: "mb-4" },
-            React.createElement("label", { htmlFor: "author", className: "block text-white font-bold mb-2" }, "Author"),
+            React.createElement("label", { htmlFor: "author", className: "block text-white font-bold mb-2" }, authorText),
             React.createElement("input", { type: "text", id: "author", value: author, onChange: (event) => setAuthor(event.target.value), className: "flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-white bg-slate-800", required: true })),
         React.createElement("div", { className: "mb-4" },
-            React.createElement("label", { htmlFor: "comment", className: "block text-white font-bold mb-2" }, "Comment"),
+            React.createElement("label", { htmlFor: "comment", className: "block text-white font-bold mb-2" }, commentText),
             React.createElement("textarea", { id: "comment", value: comment, onChange: (event) => setComment(event.target.value), className: "flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-white bg-slate-800", required: true })),
         React.createElement("div", { className: "mb-4" },
-            React.createElement("label", { htmlFor: "comment", className: "block text-white font-bold mb-2" }, "Images"),
+            React.createElement("label", { htmlFor: "comment", className: "block text-white font-bold mb-2" }, imagesText),
             React.createElement("input", { type: "file", id: "images", className: "flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-main-light file:text-white file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-white bg-slate-800", multiple: true, onChange: (event) => {
                     if (event.target.files) {
                         setImages(Array.from(event.target.files));
                     }
                 } })),
-        React.createElement("button", { type: "submit", className: "w-[250px] px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" }, "Submit")));
+        React.createElement("button", { type: "submit", className: "w-[250px] px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" }, submitText)));
 };
 
-const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSubmit = true, classNameReviewsContainer = '', classNameContainer = '', classNameReview = '' }) => {
+const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSubmit = true, classNameReviewsContainer = '', classNameContainer = '', classNameReview = '', noReviewsText = 'No reviews yet.', sectionTitleText = 'Customer reviews', addReviewButtonText = 'Add review', commentText = 'Comment', ratingText = 'Rating', authorText = 'Author', imagesText = 'Images', submitText = 'Submit', }) => {
     const containerRef = React.useRef(null);
     const sliceLeft = React.useRef(0);
     const sliceRight = React.useRef(3);
@@ -8485,7 +8485,7 @@ const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSu
     };
     const averageRating = reviews.length ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length : 0;
     return (React.createElement("div", { ref: containerRef, className: `text-white relative w-full ml-auto mr-auto ${classNameContainer}` },
-        React.createElement("h1", { className: "text-2xl mb-2 font-bold text-center" }, "Customer reviews"),
+        React.createElement("h1", { className: "text-2xl mb-2 font-bold text-center" }, sectionTitleText),
         reviews.length > 0 && (React.createElement("div", { className: "flex justify-center items-center gap-2 mb-5" },
             React.createElement("div", { className: "flex gap-1" }, [...Array(Math.floor(averageRating))].map((_, index) => (React.createElement("img", { key: index, src: pathToIcon || img$3, alt: "star", className: "max-w-[30px]" })))),
             React.createElement("span", null, averageRating.toFixed(1)))),
@@ -8493,17 +8493,17 @@ const Reviews = ({ reviews, pathToIcon, _ReviewComponent, onSubmit, closeAfterSu
                 '--enter-transform': direction === 'left' ? '-50%' : '50%',
                 '--exit-transform': direction === 'left' ? '50%' : '-50%',
             } }, visibleReviews.map((review) => (React.createElement(CSSTransition$1, { key: review.id, timeout: 700, classNames: "review" }, _ReviewComponent ? (React.createElement(_ReviewComponent, { review: review })) : (React.createElement(ReviewComponent, { review: review, pathToIcon: pathToIcon, className: classNameReview }))))))) : (React.createElement("div", { className: "flex justify-center items-center w-full h-full" },
-            React.createElement("h1", { className: "text-2xl" }, "No reviews yet."))),
+            React.createElement("h1", { className: "text-2xl" }, noReviewsText))),
         React.createElement("div", { className: "mt-3 flex justify-center" },
             reviews.length > 0 && (React.createElement(React.Fragment, null,
                 React.createElement("button", { className: "text-white font-bold rounded mr-3 bg-main-light p-3", onClick: handlePrevClick },
                     React.createElement("img", { src: img, alt: "left", className: "max-w-[30px] w-[30px]" })),
                 React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3", onClick: handleNextClick },
                     React.createElement("img", { src: img$1, alt: "right", className: "max-w-[30px] w-[30px]" })))),
-            onSubmit && (React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3 ml-3 mt-0", onClick: () => setShowNewReviewForm(!showNewReviewForm) }, showNewReviewForm ? 'Close' : 'Add Review'))),
+            onSubmit && (React.createElement("button", { className: "text-white font-bold rounded bg-main-light p-3 ml-3 mt-0", onClick: () => setShowNewReviewForm(!showNewReviewForm) }, addReviewButtonText))),
         showNewReviewForm && onSubmit && (React.createElement("div", { className: "top-0 left-0 w-full h-full fixed flex justify-center items-center z-[5]" },
             React.createElement("div", { className: "absolute top-0 left-0 w-full h-full bg-black opacity-50", onClick: () => setShowNewReviewForm(false) }),
-            React.createElement(ReviewForm, { onSubmit: (review) => {
+            React.createElement(ReviewForm, { commentText: commentText, ratingText: ratingText, authorText: authorText, imagesText: imagesText, submitText: submitText, onSubmit: (review) => {
                     onSubmit(review);
                     if (closeAfterSubmit) {
                         setShowNewReviewForm(false);

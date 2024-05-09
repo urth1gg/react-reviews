@@ -24,6 +24,7 @@ export interface ReviewsComponentProps {
   authorText?: string;
   imagesText?: string;
   submitText?: string;
+  onReadMoreClick?: (comment: string) => void;
 }
 
 export const Reviews: React.FC<ReviewsComponentProps> = ({
@@ -43,6 +44,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
   authorText = 'Author',
   imagesText = 'Images',
   submitText = 'Submit',
+  onReadMoreClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sliceLeft = useRef(0);
@@ -125,7 +127,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
               {_ReviewComponent ? (
                 <_ReviewComponent review={review} />
               ) : (
-                <ReviewComponent review={review} pathToIcon={pathToIcon} className={classNameReview} />
+                <ReviewComponent review={review} pathToIcon={pathToIcon} className={classNameReview} onReadMoreClick={onReadMoreClick}/>
               )}
             </CSSTransition>
           ))}

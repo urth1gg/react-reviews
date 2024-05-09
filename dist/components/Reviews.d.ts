@@ -11,5 +11,13 @@ export interface ReviewsComponentProps {
     onSubmit?: (review: Review) => void;
     closeAfterSubmit?: boolean;
     classNameReviewsContainer?: string;
+    noReviewsText?: string;
+    sectionTitleText?: string;
+    addReviewButtonText?: string;
+    commentText?: string;
+    ratingText?: string;
+    authorText?: string;
+    imagesText?: string;
+    submitText?: string;
 }
 export declare const Reviews: React.FC<ReviewsComponentProps>;
