@@ -48,13 +48,13 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({
         <form onSubmit={handleSubmit} className={`max-w-md mx-auto ${className ? className:''}`}>
             <div className="mb-4">
                 <label htmlFor="rating" className="block text-white font-bold mb-2">
-                    {ratingText}
+                    {ratingText || 'Rating'}
                 </label>
                 <Stars initialRating={5} maxStars={5} showEmptyStars={true} onStarClick={onStarClick} />
             </div>
             <div className="mb-4">
                 <label htmlFor="author" className="block text-white font-bold mb-2">
-                    {authorText}
+                    {authorText || 'Author'}
                 </label>
                 <input
                     type="text"
@@ -67,7 +67,7 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({
             </div>
             <div className="mb-4">
                 <label htmlFor="comment" className="block text-white font-bold mb-2">
-                    {commentText}
+                    {commentText || 'Review'} 
                 </label>
                 <textarea
                     id="comment"
@@ -79,7 +79,7 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({
             </div>
             <div className="mb-4">
                 <label htmlFor="comment" className="block text-white font-bold mb-2">
-                    {imagesText}
+                    {imagesText || 'Images'}
                 </label>
                 <input
                     type="file"
@@ -97,7 +97,7 @@ export const ReviewForm: React.FC<ReviewFormComponentProps> = ({
                 type="submit"
                 className="w-[250px] px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             >
-                {submitText}
+                {submitText || 'Submit'}
             </button>
         </form>
     );
