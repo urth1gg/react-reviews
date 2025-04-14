@@ -1,6 +1,7 @@
 import React from 'react';
 import type { StoryObj } from '@storybook/react';
 import '../assets/output.css';
+import './stories.css';
 declare const meta: {
     title: string;
     component: React.FC<import("../components/Reviews").ReviewsComponentProps>;

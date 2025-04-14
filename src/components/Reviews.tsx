@@ -103,7 +103,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
     <div ref={containerRef} className={`text-white relative w-full ml-auto mr-auto ${classNameContainer}`}>
       <h1 className="text-2xl mb-2 font-bold text-center">{sectionTitleText}</h1>
 
-      {reviews.length > 0 && (
+      {reviews.length > 0 ? (
         <div className="flex justify-center items-center gap-2 mb-5">
           <div className="flex gap-1">
             {[...Array(Math.floor(averageRating))].map((_, index) => (
@@ -112,7 +112,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
           </div>
           <span>{averageRating.toFixed(1)}</span>
         </div>
-      )}
+      ) : <></>}
 
       {reviews.length > 0 ? (
         <TransitionGroup
@@ -127,7 +127,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
               {_ReviewComponent ? (
                 <_ReviewComponent review={review} />
               ) : (
-                <ReviewComponent review={review} pathToIcon={pathToIcon} className={classNameReview} onReadMoreClick={onReadMoreClick}/>
+                <ReviewComponent review={review} pathToIcon={pathToIcon} className={classNameReview} onReadMoreClick={onReadMoreClick} />
               )}
             </CSSTransition>
           ))}
@@ -139,7 +139,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
       )}
 
       <div className="mt-3 flex justify-center">
-        {reviews.length > 0 && (
+        {reviews.length > 0 ? (
           <>
             <button className="text-white font-bold rounded mr-3 bg-main-light p-3" onClick={handlePrevClick}>
               <img src={Left} alt="left" className="max-w-[30px] w-[30px]" />
@@ -148,18 +148,18 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
               <img src={Right} alt="right" className="max-w-[30px] w-[30px]" />
             </button>
           </>
-        )}
-        {onSubmit && (
+        ) : <></>}
+        {onSubmit ? (
           <button
             className="text-white font-bold rounded bg-main-light p-3 ml-3 mt-0"
             onClick={() => setShowNewReviewForm(!showNewReviewForm)}
           >
             {addReviewButtonText}
           </button>
-        )}
+        ) : <></>}
       </div>
 
-      {showNewReviewForm && onSubmit && (
+      { (showNewReviewForm && onSubmit) ? (
         <div className="top-0 left-0 w-full h-full fixed flex justify-center items-center z-[5]">
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50" onClick={() => setShowNewReviewForm(false)}></div>
           <ReviewForm
@@ -177,7 +177,7 @@ export const Reviews: React.FC<ReviewsComponentProps> = ({
             className="bg-slate-900 relative z-[5] p-3 max-w-[500px] w-full"
           />
         </div>
-      )}
+      ) : <></>}
     </div>
   );
 };
